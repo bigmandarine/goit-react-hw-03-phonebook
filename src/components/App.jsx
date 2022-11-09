@@ -35,8 +35,10 @@ class App extends Component {
       this.setState({ contacts: contacts });
     }
   }
-  componentDidUpdate() {
-    localStorage.setItem(this.state.KEY, JSON.stringify(this.state.contacts));
+  componentDidUpdate(_, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem(this.state.KEY, JSON.stringify(this.state.contacts));
+    }
   }
   onDeleteContact = idContact => {
     this.setState(prevState => ({
